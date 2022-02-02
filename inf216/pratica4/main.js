@@ -5,7 +5,7 @@ ctx.height=600;
 ctx.width = 400;
 var pause = false;
 
-const intervalo=10;
+const intervalo=10;//10;
 let tempo =0;
 let maxtempo = 10000;
 
@@ -34,7 +34,7 @@ function Personagem(imagem, x, y, h, w) {
      * Calcula como desenhar o n-esimo frame de um sprite
      */
     this.desenha = function(n) { 
-        console.log("aqui")
+        //console.log("aqui")
         let posX = this.x;
         let sx = this.width*n;
         let sy =0;
@@ -61,11 +61,11 @@ function Estado(ini,fini, sx, sy, vel, personagem) {
     this.complemento;
     
     this.prox = function() {
-        if (this.num===this.frameFim){
-            this.num= this.frameIni;  
+        if (this.num === this.frameFim){
+            this.num = this.frameIni;  
         } 
         else { 
-            this.num=  this.num+1;
+            this.num = this.num+1;
             this.trans();
         }
     }
@@ -76,7 +76,7 @@ function Estado(ini,fini, sx, sy, vel, personagem) {
         
     }
     this.trans = function() {
-        if (this.complemento!==undefined) {
+        if (this.complemento !== undefined) {
             this.complemento();
         }
     }
@@ -89,21 +89,53 @@ var heroi =  new function(){
     this.agente = new Personagem('./inf216_player.png', 0,300, 157,200 );
     this.corrente=0;
     this.estados= new Array();
-    this.estados[0] = new Estado(0,11,0,0,20, this);  
-    this.estados[1] = new Estado(12,19,0,0,20, this);
-    this.estados[2] = new Estado(25,31,0,0,20, this);
+    this.estados[0] = new Estado(0,11,0,0,30, this);  
+    this.estados[1] = new Estado(11,19,0,0,30, this);
+    this.estados[2] = new Estado(20,24,0,0,30, this);
+    this.estados[3] = new Estado(25,31,0,0,30, this);
 
-    this.estados[1].complemento=  function() {
+    this.estados[1].complemento =  function() {
         that.agente.x= Math.max(0, that.agente.x-5);
-    }/*
-    this.estados[2].complemento=  function() {
-        that.agente.x= Math.min(900, that.agente.x+5);
     }
-    */
+    this.estados[2].complemento =  function() {
+        that.agente.y= Math.min(900, that.agente.y-60/2);
+        that.agente.x= Math.max(0, that.agente.x+5);
+    }
+    this.estados[3].complemento =  function() {
+        that.agente.y= Math.min(900, that.agente.y+40/2);
+    }
     this.desenha = function(){
         if ( this.estados[this.corrente].muda()) this.estados[this.corrente].prox();
         this.agente.desenha(this.estados[this.corrente].num);
+        this.calculaProxEstado();
     }
+    this.calculaProxEstado = function() {
+        switch(this.corrente) {
+            case 1:
+                if (this.estados[this.corrente].num === 
+                    this.estados[this.corrente].frameFim) {
+                    this.estados[this.corrente].num = this.estados[this.corrente].frameIni;
+                    this.corrente = 0;
+                } 
+            break;
+            case 2:
+                if (this.estados[this.corrente].num === 
+                    this.estados[this.corrente].frameFim) {
+                    this.estados[this.corrente].num = this.estados[this.corrente].frameIni;
+                    this.corrente = 3;
+                } 
+            break;
+            case 3:
+                if (this.estados[this.corrente].num === 
+                    this.estados[this.corrente].frameFim) {
+                    this.estados[this.corrente].num = this.estados[this.corrente].frameIni;
+                    this.corrente = 0;
+                } 
+            break;
+            case 0:
+            break;
+        }
+    }  
 }
 
 var fundo = new function(){
@@ -188,12 +220,12 @@ document.onkeydown = function(e){
     if (window.event) keycode = window.event.keyCode;
     else if (e) keycode = e.which;
  
-    if (keycode===BAIXO) {
+    if (keycode===BAIXO && heroi.corrente == 0) {
         heroi.corrente=1;
-    } else if(keycode===CIMA) {
+    } else if(keycode===CIMA && heroi.corrente == 0) {
         heroi.corrente=2;
     } else if(keycode===DIR) {
-        heroi.corrente=0;
+        //heroi.corrente=3;
     } 
     else if(keycode===ESQ) {
         pause=!pause; 
