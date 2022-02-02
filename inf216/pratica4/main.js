@@ -1,6 +1,5 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-//ctx.width = 200;
 ctx.height= 600;
 ctx.width = 400;
 var pause = false;
@@ -8,7 +7,7 @@ var tela = 1;
 var pontuacao = 0;
 var pontuacaoMax = 0;
 
-const intervalo=10;//10;
+const intervalo=10;
 let tempo = 0;
 let maxtempo = 10000;
 
@@ -32,11 +31,7 @@ function Personagem(imagem, x, y, h, w) {
     this.height = h;
     this.hitbox = [0,0,w,h];
     this.hitboxArea = [];
-    /*
-     * Calcula como desenhar o n-esimo frame de um sprite
-     */
     this.desenha = function(n) { 
-        //console.log("aqui")
         let posX = this.x;
         let sx = this.width*n;
         let sy =0;
@@ -51,7 +46,6 @@ function Personagem(imagem, x, y, h, w) {
             alert(e.toString());
         }
         this.hitboxArea = [this.x+this.hitbox[0], this.y+this.hitbox[1], this.hitbox[2], this.hitbox[3]];
-        //console.log(this.hitboxArea)
     }
     this.desenhaHitbox = function(){
         ctx.beginPath();
@@ -285,6 +279,7 @@ var GameLoop = function(){
                 if (pontuacao>pontuacaoMax){pontuacaoMax = pontuacao;}
                 pontuacao = 0;
                 pause = true;
+                heroi.agente.x = 0;
                 nave.x = Math.floor(Math.random()*300)+400;
                 console.log("bateu");
             }
@@ -304,7 +299,6 @@ let DIR=39;
 var create = function(){
     nave.x=400;
     console.log("criado")
-    //obt.desenha();
 }
 
 document.onkeydown = function(e){
@@ -315,6 +309,8 @@ document.onkeydown = function(e){
     if (keycode===BAIXO && heroi.corrente == 0) {
         heroi.corrente=1;
     } else if(keycode===CIMA && heroi.corrente == 0) {
+        heroi.corrente=2;
+    } else if(keycode===32 && heroi.corrente == 0) {
         heroi.corrente=2;
     } else if(keycode===DIR) {
         //heroi.corrente=3;
@@ -342,5 +338,5 @@ canvas.addEventListener('click', function() { }, false);
 var GameStart = function(){
     GameLoop();
 }
+
 GameStart();
-//GameLoop();
