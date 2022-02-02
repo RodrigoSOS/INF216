@@ -232,6 +232,12 @@ document.onkeydown = function(e){
     } 
 }
 
+document.ontouchstart = function(e){
+    if (heroi.corrente == 0){
+        heroi.corrente=2;
+    }
+}
+
 
 
 GameLoop();
