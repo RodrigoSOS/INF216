@@ -237,6 +237,11 @@ document.ontouchstart = function(e){
         heroi.corrente=2;
     }
 }
+document.onclick = function(e){
+    if (heroi.corrente == 0){
+        heroi.corrente=2;
+    }
+}
 
 
 
