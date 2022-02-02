@@ -94,6 +94,9 @@ var heroi =  new function(){
     this.estados[2] = new Estado(20,24,0,0,30, this);
     this.estados[3] = new Estado(25,31,0,0,30, this);
 
+    this.estados[0].complemento =  function() {
+        that.agente.x= Math.max(0, that.agente.x-5);
+    }
     this.estados[1].complemento =  function() {
         that.agente.x= Math.max(0, that.agente.x-5);
     }
