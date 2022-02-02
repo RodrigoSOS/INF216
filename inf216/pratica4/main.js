@@ -1,14 +1,16 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 //ctx.width = 200;
-ctx.height=600;
+ctx.height= 600;
 ctx.width = 400;
 var pause = false;
+var tela = 1;
+var pontuacao = 0;
+var pontuacaoMax = 0;
 
 const intervalo=10;//10;
-let tempo =0;
+let tempo = 0;
 let maxtempo = 10000;
-
 
 var nome=navigator.userAgent; 
 var direita=39;
@@ -20,7 +22,6 @@ if (nome.indexOf('Chrome')!=-1) {
     esquerda=97;
 }
 
-
 function Personagem(imagem, x, y, h, w) {
     this.x=x;
     this.y=y;
@@ -29,7 +30,8 @@ function Personagem(imagem, x, y, h, w) {
     this.img.src = imagem; 
     this.width = w;
     this.height = h;
-    
+    this.hitbox = [0,0,w,h];
+    this.hitboxArea = [];
     /*
      * Calcula como desenhar o n-esimo frame de um sprite
      */
@@ -48,6 +50,14 @@ function Personagem(imagem, x, y, h, w) {
         } catch (e) {
             alert(e.toString());
         }
+        this.hitboxArea = [this.x+this.hitbox[0], this.y+this.hitbox[1], this.hitbox[2], this.hitbox[3]];
+        //console.log(this.hitboxArea)
+    }
+    this.desenhaHitbox = function(){
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.rect(this.x+this.hitbox[0], this.y+this.hitbox[1], this.hitbox[2], this.hitbox[3]);
+        ctx.stroke();
     }
 }
 function Estado(ini,fini, sx, sy, vel, personagem) {
@@ -83,12 +93,13 @@ function Estado(ini,fini, sx, sy, vel, personagem) {
 }
 
 
-
+//heroi
 var heroi =  new function(){
     let that = this;
     this.agente = new Personagem('./inf216_player.png', 0,300, 157,200 );
     this.corrente=0;
     this.estados= new Array();
+    this.agente.hitbox = [100,40,30,100];
     this.estados[0] = new Estado(0,11,0,0,30, this);  
     this.estados[1] = new Estado(11,19,0,0,30, this);
     this.estados[2] = new Estado(20,24,0,0,30, this);
@@ -96,21 +107,29 @@ var heroi =  new function(){
 
     this.estados[0].complemento =  function() {
         that.agente.x= Math.max(0, that.agente.x-5);
+        that.agente.hitbox = [100,40,30,100];
     }
     this.estados[1].complemento =  function() {
-        that.agente.x= Math.max(0, that.agente.x-5);
+        that.agente.x= Math.max(0, that.agente.x+10);
+        that.agente.hitbox = [100,100,100,60];
     }
     this.estados[2].complemento =  function() {
         that.agente.y= Math.min(900, that.agente.y-60/2);
-        that.agente.x= Math.max(0, that.agente.x+5);
+        that.agente.x= Math.max(0, that.agente.x+6);
+        that.agente.hitbox = [100,40,30,100];
     }
     this.estados[3].complemento =  function() {
         that.agente.y= Math.min(900, that.agente.y+40/2);
+        that.agente.x= Math.max(0, that.agente.x+6);
+        that.agente.hitbox = [80,40,30,100];
     }
     this.desenha = function(){
         if ( this.estados[this.corrente].muda()) this.estados[this.corrente].prox();
         this.agente.desenha(this.estados[this.corrente].num);
         this.calculaProxEstado();
+    }
+    this.desenhaHitbox = function(){
+        this.agente.desenhaHitbox();
     }
     this.calculaProxEstado = function() {
         switch(this.corrente) {
@@ -140,7 +159,7 @@ var heroi =  new function(){
         }
     }  
 }
-
+//fundo
 var fundo = new function(){
     this.img = new Image();
     this.img.src = './inf216_teste.png';  
@@ -150,6 +169,7 @@ var fundo = new function(){
     this.length=1600;
     this.vel = 10;
 }
+
 var fundo2 = new function(){
     this.img = new Image();
     this.img.src = './inf216_teste2.png';  
@@ -160,30 +180,10 @@ var fundo2 = new function(){
     this.vel = 2;
 }
 
-
-var nave =  new function(){
-    this.x=88;
-    this.y=220;
-    this.w=24;
-    this.h=24;
-    this.frame=1;
-    this.img = new Image();
-    this.img.src = './player.png';  
-}
-
 function limpa(){
     ctx.fillStyle = '#d0e7f9';  
     ctx.rect(0, 0,  ctx.width,  ctx.height);    
     ctx.fill();  
-}
-
-function desenha(){
-    desenhaFundo2();
-    desenhaFundo();
-    heroi.desenha();
-
-    //ctx.drawImage(new Image('./inf216_plyer.png'),0,0);  
-    //ctx.drawImage(nave.img,nave.w*nave.frame,0,nave.w, nave.h,nave.x,nave.y,nave.w, nave.h);  
 }
 
 function desenhaFundo(){
@@ -205,18 +205,107 @@ function desenhaFundo2(){
     if (fundo2.iniframe<0) fundo2.iniframe = fundo2.length-1;
 }
 
+function puntuacao(){
+    ctx.font = '48px serif';
+    ctx.fillText(`${Math.floor(pontuacao/10)}`, 10, ctx.height-50);
+}
+function puntuacaoMax(){
+    ctx.font = '48px serif';
+    if (pontuacaoMax>0)
+        ctx.fillText(`${Math.floor(pontuacaoMax/10)}`, ctx.width-100, ctx.height-50);
+}
+var nave =  new function(){
+    this.x=500;
+    this.y=430;
+    this.w=100;
+    this.h=200;
+    this.frame=0;
+    this.img = new Image();
+    this.img.src = './inf216_teste3.png';
+    this.vel = 5;
+}
+
+var testaColisao = function() {
+    let aux1 = heroi.agente.hitboxArea; 
+    let aux2 = [nave.x+10,nave.y,nave.w-20,nave.h];
+
+    heroi.desenhaHitbox();
+    ctx.beginPath();
+    ctx.strokeStyle = "red";
+    ctx.rect(aux2[0], aux2[1], aux2[2], aux2[3]);
+    ctx.stroke();
+
+    //console.log(aux1,aux2);
+    if (aux1[0] >= aux2[0]) {
+        if (aux1[1]>= aux2[1]) {
+            if (aux2[0]+aux2[2]>=aux1[0] && aux2[1]+aux2[3]>=aux1[1]) {
+                return true;
+            }
+        } else {
+           if (aux2[0]+aux2[2]>=aux1[0] && aux1[1]+aux1[3]>=aux2[1]) {
+                return true;
+            }  
+        }
+    } else {
+        if (aux1[1]>= aux2[1]) {
+            if (aux1[0]+aux1[2]>=aux2[0] && aux2[1]+aux2[3]>=aux1[1]) {
+                return true;
+            }
+        } else {
+            if (aux1[0]+aux1[2]>=aux2[0] && aux1[1]+aux1[3]>aux2[1]) {
+                return true;
+            }
+        }
+    }
+    //console.log("de boa")
+    return false;
+}
+
+function desenhaObstaculo(){
+    nave.x-=nave.vel;
+    if (nave.x <= -100) nave.x = Math.floor(Math.random()*300)+400;
+    ctx.drawImage(nave.img,nave.w*nave.frame,0,nave.w, nave.h,nave.x,nave.y,nave.w, nave.h); 
+}
+
+function desenha(){
+    desenhaFundo2();
+    desenhaFundo();
+    heroi.desenha();
+    desenhaObstaculo();
+    puntuacao();
+    puntuacaoMax();
+}
+
 var GameLoop = function(){
-    if(!pause)
-        desenha();
-    setTimeout(GameLoop, intervalo);
-    tempo = tempo+intervalo;
-    if (tempo>maxtempo) tempo=0;
+    if (tela = 1){
+        if(!pause){
+            pontuacao++;
+            desenha();
+            if(testaColisao()) {
+                if (pontuacao>pontuacaoMax){pontuacaoMax = pontuacao;}
+                pontuacao = 0;
+                pause = true;
+                nave.x = Math.floor(Math.random()*300)+400;
+                console.log("bateu");
+            }
+        }
+        setTimeout(GameLoop, intervalo);
+        tempo = tempo+intervalo;
+        if (tempo>maxtempo) tempo=0;
+    }
 }
 
 let ESQ=37;
 let BAIXO=40;
 let CIMA=38;
 let DIR=39;
+
+
+var create = function(){
+    nave.x=400;
+    console.log("criado")
+    //obt.desenha();
+}
 
 document.onkeydown = function(e){
     let keycode;
@@ -229,9 +318,10 @@ document.onkeydown = function(e){
         heroi.corrente=2;
     } else if(keycode===DIR) {
         //heroi.corrente=3;
-    } 
-    else if(keycode===ESQ) {
+    } else if(keycode===ESQ) {
         pause=!pause; 
+    } else if(keycode===90) {
+        create();
     } 
 }
 
@@ -241,11 +331,16 @@ document.ontouchstart = function(e){
     }
 }
 document.onclick = function(e){
+    if (pause) pause = false;
     if (heroi.corrente == 0){
         heroi.corrente=2;
     }
 }
 
+canvas.addEventListener('click', function() { }, false);
 
-
-GameLoop();
+var GameStart = function(){
+    GameLoop();
+}
+GameStart();
+//GameLoop();
