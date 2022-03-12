@@ -167,12 +167,12 @@ class Example extends Phaser.Scene
         this.cameras.main.setSize(1600, 600);
 
         pivot = this.add.circle(200, 200, 80, 0x6666ff);
-        var graphics = game.add.graphics(0, 0);
+        //var graphics = game.add.graphics(0, 0);
 
         // graphics.lineStyle(2, 0xffd900, 1);
 
         //graphics.beginFill(0xFF0000, 1);
-        graphics.drawCircle(300, 300, 100);
+        //graphics.drawCircle(300, 300, 100);
     }
 
     update ()
