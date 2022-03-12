@@ -180,8 +180,8 @@ class Example extends Phaser.Scene
         }
 
         agente.update();
-        pivot.x=agente.x;
-        pivot.y=agemte.y;
+        //pivot.x=agente.x;
+        //pivot.y=agemte.y;
         this.cameras.main.centerOn(agente.x+400, agente.y-150);
     }
 
