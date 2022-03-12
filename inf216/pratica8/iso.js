@@ -163,7 +163,7 @@ class Example extends Phaser.Scene
         this.placeHouses();
 
         agente = this.add.existing(new Skeleton(this, 800, 150, 'walk', 'south', 600));
-        //pivot = this.add.circle(200, 200, 80, 0x6666ff);
+        pivot = this.add.circle(200, 200, 80, 0x6666ff);
         this.cameras.main.setSize(1600, 600);
     }
 
