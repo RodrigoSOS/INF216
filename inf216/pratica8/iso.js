@@ -201,14 +201,8 @@ class Example extends Phaser.Scene
             agente.changeState('walk', 'south') 
         }
 
-        agente.update();
+        
 
-        a += 0.015;
-
-        if (a > Math.PI * 4)
-        {
-            a -= Math.PI * 4;
-        }
 
         var x = agente.x;
         var y = agente.y;
@@ -231,7 +225,7 @@ class Example extends Phaser.Scene
 
 
 
-
+        agente.update();
 
         this.cameras.main.centerOn(agente.x+400, agente.y-150);
     }
