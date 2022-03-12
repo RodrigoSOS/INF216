@@ -168,11 +168,11 @@ class Example extends Phaser.Scene
         graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaa6622 } });
 
         polygon = new Phaser.Geom.Polygon([
-            0,-400,
+            0,400,
             800,0,
-            1600,-400,
-            800,400,
-            0,-400
+            1600,400,
+            800,800,
+            0,400
         ]);
 
         this.buildMap();
