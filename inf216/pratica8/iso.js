@@ -19,6 +19,7 @@ var anims = {
 
 var cursors;
 var agente;
+var pivot;
 var tileWidthHalf;
 var tileHeightHalf;
 var data;
@@ -35,6 +36,7 @@ class Skeleton extends Phaser.GameObjects.Image {
         this.startX = x;
         this.startY = y;
         this.distance = distance;
+        this.pivot = [0,0];
 
         this.motion = motion;
         this.anim = anims[motion];
@@ -46,7 +48,11 @@ class Skeleton extends Phaser.GameObjects.Image {
 
         scene.time.delayedCall(this.anim.speed * 1000, this.changeFrame, [], this);
     }
-    
+    //novo
+    getPivot()
+    {
+        return [this.x+this.pivot[0],this.y+this.pivot[1]];
+    }
     changeState(motion, direction) 
     {
         this.direction = directions[direction];
@@ -153,7 +159,7 @@ class Example extends Phaser.Scene
         this.placeHouses();
 
         agente = this.add.existing(new Skeleton(this, 800, 150, 'walk', 'south', 600));
-
+        pivot = this.add.circle(200, 200, 80, 0x6666ff);
         this.cameras.main.setSize(1600, 600);
     }
 
@@ -170,7 +176,8 @@ class Example extends Phaser.Scene
         }
 
         agente.update();
-
+        pivot.x=agente.x;
+        pivot.y=agemte.y;
         this.cameras.main.centerOn(agente.x+400, agente.y-150);
     }
 
