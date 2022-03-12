@@ -168,7 +168,7 @@ class Example extends Phaser.Scene
         
         this.cameras.main.setSize(1600, 600);
 
-        pivot = this.add.circle(200, 200, 80, 0x6666ff);
+        //pivot = this.add.circle(200, 200, 80, 0x6666ff);
 
         poly = new Phaser.Polygon([ new Phaser.Point(200, 100), new Phaser.Point(350, 100), new Phaser.Point(375, 200), new Phaser.Point(150, 200) ]);
 
