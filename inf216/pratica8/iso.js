@@ -130,6 +130,16 @@ class Skeleton extends Phaser.GameObjects.Image {
                 this.y += this.direction.y * this.speed;
                 this.depth = this.y + 64;
             }
+            while(!Phaser.Geom.Polygon.Contains(polygon, x, y)){
+                this.x -= this.direction.x * this.speed;
+
+                if (this.direction.y !== 0)
+                {
+                    this.y -= this.direction.y * this.speed;
+                    this.depth = this.y + 64;
+                }
+            }
+
             /*
             //  Walked far enough?
             if (Phaser.Math.Distance.Between(this.startX, this.startY, this.x, this.y) >= this.distance)
