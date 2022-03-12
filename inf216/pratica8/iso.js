@@ -130,7 +130,7 @@ class Skeleton extends Phaser.GameObjects.Image {
                 this.y += this.direction.y * this.speed;
                 this.depth = this.y + 64;
             }
-
+            /*
             //  Walked far enough?
             if (Phaser.Math.Distance.Between(this.startX, this.startY, this.x, this.y) >= this.distance)
             {
@@ -140,6 +140,7 @@ class Skeleton extends Phaser.GameObjects.Image {
                 this.startX = this.x;
                 this.startY = this.y;
             }
+            */
         }
     }
 }
@@ -164,11 +165,6 @@ class Example extends Phaser.Scene
         scene = this;
         cursors = this.input.keyboard.createCursorKeys();
 
-        //this.buildMap();
-        this.placeHouses();
-
-        agente = this.add.existing(new Skeleton(this, 800, 150, 'walk', 'south', 600));
-        
         graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaa6622 } });
 
         polygon = new Phaser.Geom.Polygon([
@@ -178,6 +174,13 @@ class Example extends Phaser.Scene
             0,-200,
             -200,16
         ]);
+
+        this.buildMap();
+        this.placeHouses();
+
+        agente = this.add.existing(new Skeleton(this, 800, 150, 'walk', 'south', 600));
+        
+        
 
         this.cameras.main.setSize(1600, 600);
 
