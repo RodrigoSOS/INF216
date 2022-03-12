@@ -1,7 +1,3 @@
-//var vercao = document.getElementById("vercao");
-//vercao.innerText="vercao2";
-//ver.4
-
 var directions = {
     west: { offset: 0, x: -2, y: 0, opposite: 'east' },
     northWest: { offset: 32, x: -2, y: -1, opposite: 'southEast' },
@@ -44,7 +40,7 @@ class Skeleton extends Phaser.GameObjects.Image {
         this.startX = x;
         this.startY = y;
         this.distance = distance;
-        this.pivot = [0,0];
+        this.pivot = [0,24];
 
         this.motion = motion;
         this.anim = anims[motion];
@@ -56,11 +52,6 @@ class Skeleton extends Phaser.GameObjects.Image {
         this.depth = y + 64;
 
         scene.time.delayedCall(this.anim.speed * 1000, this.changeFrame, [], this);
-    }
-    //novo
-    getPivot()
-    {
-        return [this.x+this.pivot[0],this.y+this.pivot[1]];
     }
     changeState(motion, direction) 
     {
@@ -130,7 +121,9 @@ class Skeleton extends Phaser.GameObjects.Image {
                 this.y += this.direction.y * this.speed;
                 this.depth = this.y + 64;
             }
-            while(!Phaser.Geom.Polygon.Contains(polygon, this.x, this.y+24)){
+
+            //verifica se o pivot do personagem esta dentro do mundo
+            while(!Phaser.Geom.Polygon.Contains(polygon, this.x+this.pivot[0], this.y+this.pivot[1])){
                 this.x -= this.direction.x * this.speed;
 
                 if (this.direction.y !== 0)
@@ -175,8 +168,8 @@ class Example extends Phaser.Scene
         scene = this;
         cursors = this.input.keyboard.createCursorKeys();
 
+        //define mundo
         graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaa6622 } });
-
         polygon = new Phaser.Geom.Polygon([
             0,400,
             800,0,
@@ -190,13 +183,7 @@ class Example extends Phaser.Scene
 
         agente = this.add.existing(new Skeleton(this, 800, 150, 'walk', 'south', 600));
         
-        
-
         this.cameras.main.setSize(1600, 600);
-
-        //pivot = this.add.circle(200, 200, 80, 0x6666ff);
-
-
     }
 
     update ()
@@ -210,30 +197,6 @@ class Example extends Phaser.Scene
         } else if (cursors.down.isDown) {
             agente.changeState('walk', 'south') 
         }
-
-        
-
-
-        var x = agente.x;
-        var y = agente.y;
-
-        graphics.clear();
-
-        graphics.strokePoints(polygon.points, true);
-
-        if(Phaser.Geom.Polygon.Contains(polygon, x, y))
-        {
-            graphics.fillStyle(0xaa0000);
-        }
-        else
-        {
-            graphics.fillStyle(0x0000aa);
-        }
-
-        graphics.fillCircle(x, y, 8);
-
-
-
 
         agente.update();
 
