@@ -1,3 +1,6 @@
+var vercao = document.getElementById("vercao");
+vercao.innerText="vercao2";
+
 var directions = {
     west: { offset: 0, x: -2, y: 0, opposite: 'east' },
     northWest: { offset: 32, x: -2, y: -1, opposite: 'southEast' },
