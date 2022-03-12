@@ -4,7 +4,6 @@
 
 var directions = {
     west: { offset: 0, x: -2, y: 0, opposite: 'east' },
-    northWest: { offset: 32, x: -2, y: -1, opposite: 'southEast' },
     north: { offset: 64, x: 0, y: -2, opposite: 'south' },
     northEast: { offset: 96, x: 2, y: -1, opposite: 'southWest' },
     east: { offset: 128, x: 2, y: 0, opposite: 'west' },
@@ -163,7 +162,7 @@ class Example extends Phaser.Scene
         scene = this;
         cursors = this.input.keyboard.createCursorKeys();
 
-        this.buildMap();
+        //this.buildMap();
         this.placeHouses();
 
         agente = this.add.existing(new Skeleton(this, 800, 150, 'walk', 'south', 600));
