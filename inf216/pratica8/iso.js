@@ -163,8 +163,16 @@ class Example extends Phaser.Scene
         this.placeHouses();
 
         agente = this.add.existing(new Skeleton(this, 800, 150, 'walk', 'south', 600));
-        pivot = this.add.circle(200, 200, 80, 0x6666ff);
+        
         this.cameras.main.setSize(1600, 600);
+
+        pivot = this.add.circle(200, 200, 80, 0x6666ff);
+        var graphics = game.add.graphics(0, 0);
+
+        // graphics.lineStyle(2, 0xffd900, 1);
+
+        graphics.beginFill(0xFF0000, 1);
+        graphics.drawCircle(300, 300, 100);
     }
 
     update ()
@@ -180,8 +188,6 @@ class Example extends Phaser.Scene
         }
 
         agente.update();
-        pivot.x=agente.x;
-        pivot.y=agemte.y;
         this.cameras.main.centerOn(agente.x+400, agente.y-150);
     }
 
