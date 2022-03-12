@@ -130,7 +130,7 @@ class Skeleton extends Phaser.GameObjects.Image {
                 this.y += this.direction.y * this.speed;
                 this.depth = this.y + 64;
             }
-            while(!Phaser.Geom.Polygon.Contains(polygon, this.x, this.y+12)){
+            while(!Phaser.Geom.Polygon.Contains(polygon, this.x, this.y+24)){
                 this.x -= this.direction.x * this.speed;
 
                 if (this.direction.y !== 0)
