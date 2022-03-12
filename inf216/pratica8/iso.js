@@ -171,12 +171,11 @@ class Example extends Phaser.Scene
         graphics = this.add.graphics({ lineStyle: { width: 2, color: 0xaa6622 } });
 
         polygon = new Phaser.Geom.Polygon([
-            -mapwidth,centerY,
-            centerX,tileheight,
-            mapwidth,centerY,
-            centerX,-tileheight,
-            -mapwidth,centerY
-
+            -200,16,
+            0,200,
+            200,16,
+            0,-200,
+            -200,16
         ]);
 
         this.cameras.main.setSize(1600, 600);
