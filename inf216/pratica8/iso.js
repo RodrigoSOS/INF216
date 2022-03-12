@@ -170,13 +170,6 @@ class Example extends Phaser.Scene
 
         //pivot = this.add.circle(200, 200, 80, 0x6666ff);
 
-        poly = new Phaser.Polygon([ new Phaser.Point(200, 100), new Phaser.Point(350, 100), new Phaser.Point(375, 200), new Phaser.Point(150, 200) ]);
-
-        graphics = game.add.graphics(0, 0);
-
-        graphics.beginFill(0xFF33ff);
-        graphics.drawPolygon(poly.points);
-        graphics.endFill();
     }
 
     update ()
@@ -193,20 +186,6 @@ class Example extends Phaser.Scene
 
         agente.update();
         this.cameras.main.centerOn(agente.x+400, agente.y-150);
-
-        graphics.clear();
-
-        if (poly.contains(game.input.x, game.input.y))
-        {
-            graphics.beginFill(0xFF3300);
-        }
-        else
-        {
-            graphics.beginFill(0xFF33ff);
-        }
-
-        graphics.drawPolygon(poly.points);
-        graphics.endFill();
     }
 
 
