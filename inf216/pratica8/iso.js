@@ -27,6 +27,8 @@ var pivot;
 var tileWidthHalf;
 var tileHeightHalf;
 var data;
+var poly;
+var graphics;
 
 var d = 0;
 
@@ -167,12 +169,14 @@ class Example extends Phaser.Scene
         this.cameras.main.setSize(1600, 600);
 
         pivot = this.add.circle(200, 200, 80, 0x6666ff);
-        //var graphics = game.add.graphics(0, 0);
 
-        // graphics.lineStyle(2, 0xffd900, 1);
+        poly = new Phaser.Polygon([ new Phaser.Point(200, 100), new Phaser.Point(350, 100), new Phaser.Point(375, 200), new Phaser.Point(150, 200) ]);
 
-        //graphics.beginFill(0xFF0000, 1);
-        //graphics.drawCircle(300, 300, 100);
+        graphics = game.add.graphics(0, 0);
+
+        graphics.beginFill(0xFF33ff);
+        graphics.drawPolygon(poly.points);
+        graphics.endFill();
     }
 
     update ()
@@ -189,6 +193,20 @@ class Example extends Phaser.Scene
 
         agente.update();
         this.cameras.main.centerOn(agente.x+400, agente.y-150);
+
+        graphics.clear();
+
+        if (poly.contains(game.input.x, game.input.y))
+        {
+            graphics.beginFill(0xFF3300);
+        }
+        else
+        {
+            graphics.beginFill(0xFF33ff);
+        }
+
+        graphics.drawPolygon(poly.points);
+        graphics.endFill();
     }
 
 
