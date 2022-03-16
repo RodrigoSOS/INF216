@@ -159,13 +159,15 @@ function create () {
            lutA.anims.play('fall1A', true);
            ah.play(); 
            valorVidaA -= 20;
+           console.log(`a:${valorVidaA} b:${valorVidaB}`);
         };
         
         // Lutador A acerta um golpe no lutador B 
         if (stateFragil.indexOf(lutB.anims.currentAnim.key)>-1   && golpesA.indexOf(lutA.anims.currentAnim.key) >-1) {     
            lutB.anims.play('fall', true);
            ah.play(); 
-           valorVidaB -=20;
+           valorVidaB -= 20;
+           console.log(`a:${valorVidaA} b:${valorVidaB}`);
         };
         
         lutB.x-=5;
