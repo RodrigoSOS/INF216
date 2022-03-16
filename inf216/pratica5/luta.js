@@ -123,7 +123,22 @@ function create () {
      this.anims.create({ key: 'kick',
         frames: this.anims.generateFrameNumbers('lutadorB', { start: 4, end: 10 }),
         frameRate: 20});
+
+    /*adicionado*/    
+    this.anims.create({ key: 'lowpunch',
+        frames: this.anims.generateFrameNumbers('lutadorB', { start: 11, end: 13 }),
+        frameRate: 5});
+
+    /*adicionado*/  
+    this.anims.create({ key: 'dead',
+        frames: this.anims.generateFrameNumbers('lutadorB', { start: 23, end: 23 }),
+        frameRate: 10});
     
+    /*adicionado*/  
+    this.anims.create({ key: 'mortal',
+        frames: this.anims.generateFrameNumbers('lutadorB', { start: 40, end: 49 }),
+        frameRate: 5});
+
      this.anims.create({ key: 'fall',
         frames: this.anims.generateFrameNumbers('lutadorB', { start: 30, end: 39 }),
         frameRate: 5});
@@ -135,7 +150,11 @@ function create () {
     this.physics.add.collider(lutB, plataformas);
 
     var collider = this.physics.add.collider(lutA, lutB, function (lutA, lutB) {
-        if (lutB.anims.currentAnim.key == 'kick' && lutA.anims.currentAnim.key== 'idleA') {     
+        /*alterado*/
+        if ((lutB.anims.currentAnim.key == 'kick' && lutA.anims.currentAnim.key== 'idleA') ||
+            (lutB.anims.currentAnim.key == 'lowpunch' && lutA.anims.currentAnim.key== 'idleA') ||
+            (lutB.anims.currentAnim.key == 'mortal' && lutA.anims.currentAnim.key== 'idleA')
+        ) {     
            lutA.anims.play('fall1A', true);
            ah.play(); 
         };
@@ -181,5 +200,15 @@ function update (){
         lutB.x+=2;
         chute.play();
         lutB.anims.play('kick', true);
+    }
+    else if (cursors.down.isDown)    {
+        lutB.x+=2;
+        chute.play();
+        lutB.anims.play('lowpunch', true);
+    }
+    else if (cursors.space.isDown)    {
+        lutB.x+=2;
+        chute.play();
+        lutB.anims.play('lowpunch', true);
     }
 }
