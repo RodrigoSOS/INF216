@@ -19,6 +19,7 @@
   var nave;
   var asteroide;
   var explosao;
+  var vel = 1;
 
   function preload() {
        this.load.image("fundo", "assets/fundo.png");
@@ -65,11 +66,12 @@
   function update() {
       espaco.tilePositionY -= 0.5;
       if (asteroide != null) {
-          asteroide.y = (asteroide.y+1) % phaserConfig.height;
+          asteroide.y = (asteroide.y+vel) % phaserConfig.height;
       }
       if (asteroide.x<0||asteroide.x>phaserConfig.height){
         asteroide.x=Math.floor(Math.random()*phaserConfig.height);
         asteroide.y=-10;
+        vel = Math.floor(Math.random()*4)+1;
       }
       if(explosao != null){
         if (explosao.anims.getProgress()==1) {
