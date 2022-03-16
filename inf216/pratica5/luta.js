@@ -206,6 +206,7 @@ function create () {
             lutA.anims.play('fall1A', true);
             ah.play(); 
             valorVidaA -= 20;
+            vidaA.decrease(20);
             console.log(`a:${valorVidaA} b:${valorVidaB}`);
             if (valorVidaA<=0){
                 lutA.anims.play('deadA', true);
@@ -218,6 +219,7 @@ function create () {
             lutB.anims.play('fall', true);
             ah.play(); 
             valorVidaB -= 20;
+            vidaB.decrease(20);
             console.log(`a:${valorVidaA} b:${valorVidaB}`);
             if (valorVidaB<=0){
                 lutB.anims.play('dead', true);
