@@ -50,7 +50,7 @@
       var collider = this.physics.add.collider(nave, asteroide, function (nave, asteroide) {
         
         explosao = this.physics.add.sprite(nave.x-12, nave.y-12, 'explosao').setOrigin(0, 0);
-        this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explosao', { start: 0, end: 14 }), frameRate: 30, repeat: 1 });
+        this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explosao', { start: 0, end: 14 }), frameRate: 30, repeat: 0 });
         explosao.anims.play('explode', true);
         
         asteroide.destroy();
@@ -65,6 +65,10 @@
       if (asteroide != null) {
           asteroide.y = (asteroide.y+1) % phaserConfig.height;
       }
+      else {
+        asteroide = this.physics.add.sprite(80, 0, 'asteroide').setOrigin(0, 0);
+      }
+      //if(explosao != null && )
       if (cursors.left.isDown) {
          nave.setVelocityX(-100);
          nave.anims.play('esq', true);
