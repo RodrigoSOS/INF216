@@ -53,8 +53,10 @@
         this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explosao', { start: 0, end: 14 }), frameRate: 30, repeat: 0 });
         explosao.anims.play('explode', true);
         
-        asteroide.destroy();
-        asteroide = null;
+        //asteroide.destroy();
+        //asteroide = null;
+        asteroide.x=80;
+        asteroide.y=0;
         
       }, null, this);
 
@@ -67,6 +69,7 @@
       }
       else {
         asteroide = this.physics.add.sprite(80, 0, 'asteroide').setOrigin(0, 0);
+        asteroide.anims.play('rola', true);
       }
       if(explosao != null){
         if (explosao.anims.getProgress()==1) {
