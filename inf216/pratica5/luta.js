@@ -23,7 +23,7 @@ var statesA = ['aliveA','fall1A','fall2A', 'dyingA','deadA']
 var stateFragil=['idle','left','right']
 var valorVidaA = 100;
 var valorVidaB = 100;
-var vidaA = valorVidaA, vidaB = valorVidaB;
+var vidaA, vidaB ;
 var chute;
 var ah;
 
@@ -53,8 +53,7 @@ function create () {
     
     vidaA = this.add.rectangle(560, 320, valorVidaA, 10, 0x6666ff).setOrigin(0, 0);
     vidaB = this.add.rectangle(20, 320, valorVidaB, 10, 0xff33cc).setOrigin(0, 0);
-    vidaA = this.add.rectangle(560, 320, VidaA, 10, 0xff33cc).setOrigin(0, 0);
-    vidaB = this.add.rectangle(20, 320, VidaB, 10, 0x6666ff).setOrigin(0, 0);
+
  
     //*******************
     // Cria a lutador A *
@@ -159,14 +158,14 @@ function create () {
         ) {     
            lutA.anims.play('fall1A', true);
            ah.play(); 
-           vidaA -= 20;
+           valorVidaA -= 20;
         };
         
         // Lutador A acerta um golpe no lutador B 
         if (stateFragil.indexOf(lutB.anims.currentAnim.key)>-1   && golpesA.indexOf(lutA.anims.currentAnim.key) >-1) {     
            lutB.anims.play('fall', true);
            ah.play(); 
-           vidaB -=20;
+           valorVidaB -=20;
         };
         
         lutB.x-=5;
