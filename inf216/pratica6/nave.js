@@ -51,7 +51,7 @@
         
         explosao = this.physics.add.sprite(nave.x-12, nave.y-12, 'explosao').setOrigin(0, 0);
         this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explosao', { start: 0, end: 14 }), frameRate: 30, repeat: 1 });
-        explosao.anims.play('rola', true);
+        explosao.anims.play('explode', true);
         
         asteroide.destroy();
         asteroide = null;
