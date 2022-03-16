@@ -209,6 +209,6 @@ function update (){
     else if (cursors.space.isDown)    {
         lutB.x+=2;
         chute.play();
-        lutB.anims.play('lowpunch', true);
+        lutB.anims.play('mortal', true);
     }
 }
