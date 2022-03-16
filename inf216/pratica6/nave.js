@@ -18,11 +18,13 @@
   var cursors;
   var nave;
   var asteroide;
+  var explosao;
 
   function preload() {
        this.load.image("fundo", "assets/fundo.png");
        this.load.spritesheet('nave', 'assets/player.png', { frameWidth: 24, frameHeight: 24 });
        this.load.spritesheet('asteroide', 'assets/asteroid.png', { frameWidth: 64, frameHeight: 64 });
+       this.load.spritesheet('explosao', 'assets/explosion.png', { frameWidth: 35, frameHeight: 49 });
   }
 
   function create() {
@@ -41,11 +43,19 @@
       this.anims.create({ key: 'rola', frames: this.anims.generateFrameNumbers('asteroide', { start: 0, end: 19 }), frameRate: 30, repeat: -1 });
       asteroide.anims.play('rola', true);
 
+      
+
       this.physics.add.collider(nave, asteroide);
 
       var collider = this.physics.add.collider(nave, asteroide, function (nave, asteroide) {
+        
+        explosao = this.physics.add.sprite(asteroide.x, asteroide.y, 'explosao').setOrigin(0, 0);
+        this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explosao', { start: 0, end: 14 }), frameRate: 30, repeat: 0 });
+        asteroide.anims.play('rola', true);
+        
         asteroide.destroy();
-        asteroide = null;  
+        asteroide = null;
+        
       }, null, this);
 
   }
