@@ -173,7 +173,7 @@ function create () {
             valorVidaB -= 20;
             console.log(`a:${valorVidaA} b:${valorVidaB}`);
             if (valorVidaB<=0){
-                lutA.anims.play('dead', true);
+                lutB.anims.play('dead', true);
                 ah.play(); 
             } 
         };
