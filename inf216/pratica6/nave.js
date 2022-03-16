@@ -68,7 +68,12 @@
       else {
         asteroide = this.physics.add.sprite(80, 0, 'asteroide').setOrigin(0, 0);
       }
-      //if(explosao != null && )
+      if(explosao != null){
+        if (explosao.anims.getProgress()==1) {
+            explosao.destroy();
+            explosao = null;
+        }
+      }
       if (cursors.left.isDown) {
          nave.setVelocityX(-100);
          nave.anims.play('esq', true);
