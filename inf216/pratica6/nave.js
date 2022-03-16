@@ -66,7 +66,7 @@
   function update() {
       espaco.tilePositionY -= 0.5;
       if (asteroide != null) {
-          asteroide.y = (asteroide.y+vel);// % phaserConfig.height;
+          asteroide.y = (asteroide.y+vel) % phaserConfig.height;
       }
       if (asteroide.x<0||asteroide.x>phaserConfig.height){
         asteroide.x=Math.floor(Math.random()*phaserConfig.height);
