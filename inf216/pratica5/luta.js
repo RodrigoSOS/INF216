@@ -156,18 +156,26 @@ function create () {
             (lutB.anims.currentAnim.key == 'lowpunch' && lutA.anims.currentAnim.key== 'idleA') ||
             (lutB.anims.currentAnim.key == 'mortal' && lutA.anims.currentAnim.key== 'idleA')
         ) {     
-           lutA.anims.play('fall1A', true);
-           ah.play(); 
-           valorVidaA -= 20;
-           console.log(`a:${valorVidaA} b:${valorVidaB}`);
+            lutA.anims.play('fall1A', true);
+            ah.play(); 
+            valorVidaA -= 20;
+            console.log(`a:${valorVidaA} b:${valorVidaB}`);
+            if (valorVidaA<=0){
+                lutA.anims.play('deadA', true);
+                ah.play(); 
+            } 
         };
         
         // Lutador A acerta um golpe no lutador B 
         if (stateFragil.indexOf(lutB.anims.currentAnim.key)>-1   && golpesA.indexOf(lutA.anims.currentAnim.key) >-1) {     
-           lutB.anims.play('fall', true);
-           ah.play(); 
-           valorVidaB -= 20;
-           console.log(`a:${valorVidaA} b:${valorVidaB}`);
+            lutB.anims.play('fall', true);
+            ah.play(); 
+            valorVidaB -= 20;
+            console.log(`a:${valorVidaA} b:${valorVidaB}`);
+            if (valorVidaB<=0){
+                lutA.anims.play('dead', true);
+                ah.play(); 
+            } 
         };
         
         lutB.x-=5;
