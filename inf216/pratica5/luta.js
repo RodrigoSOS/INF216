@@ -51,8 +51,7 @@ function create () {
     plataformas = this.physics.add.staticGroup();
     plataformas.create(18, chao, 'plata').setOrigin(0, 0).setScale(1).refreshBody();
     
-    vidaA = this.add.rectangle(560, 320, valorVidaA, 10, 0x6666ff).setOrigin(0, 0);
-    vidaB = this.add.rectangle(20, 320, valorVidaB, 10, 0xff33cc).setOrigin(0, 0);
+    
 
  
     //*******************
@@ -183,6 +182,10 @@ function create () {
 }
 
 function update (){
+
+    vidaA = this.add.rectangle(560, 320, valorVidaA, 10, 0x6666ff).setOrigin(0, 0);
+    vidaB = this.add.rectangle(20, 320, valorVidaB, 10, 0xff33cc).setOrigin(0, 0);
+
     if (lutA.anims.getProgress()==1 && lutA.anims.currentAnim.key != 'deadA') {
         let n = Math.floor(Math.random() * 100);
         if (n<90) {
