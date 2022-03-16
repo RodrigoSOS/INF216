@@ -36,6 +36,50 @@ function preload () {
     this.load.audio('ah', ['assets/ah.ogg']);
 }
 
+class HealthBar {
+    constructor (scene, x, y)
+    {
+        this.bar = new Phaser.GameObjects.Graphics(scene);
+        this.x = x;
+        this.y = y;
+        this.value = 100;
+        this.p = 76 / 100;
+        this.draw();
+        scene.add.existing(this.bar);
+    }
+
+    decrease (amount)
+    {
+        this.value -= amount;
+        if (this.value < 0){this.value = 0;}
+        this.draw();
+        return (this.value === 0);
+    }
+
+    draw ()
+    {
+        this.bar.clear();
+        //  BG
+        this.bar.fillStyle(0x000000);
+        this.bar.fillRect(this.x, this.y, 80, 16);
+        //  Health
+        this.bar.fillStyle(0xffffff);
+        this.bar.fillRect(this.x + 2, this.y + 2, 76, 12);
+        if (this.value < 30){
+            this.bar.fillStyle(0xff0000);
+        }
+        else{
+            this.bar.fillStyle(0x00ff00);
+        }
+        var d = Math.floor(this.p * this.value);
+        this.bar.fillRect(this.x + 2, this.y + 2, d, 12);
+    }
+}
+
+
+
+
+
 function create () {
     
     cursors = this.input.keyboard.createCursorKeys();
@@ -51,7 +95,11 @@ function create () {
     plataformas = this.physics.add.staticGroup();
     plataformas.create(18, chao, 'plata').setOrigin(0, 0).setScale(1).refreshBody();
     
-    
+    //vidaA = this.add.rectangle(560, 320, valorVidaA, 10, 0x6666ff).setOrigin(0, 0);
+    //vidaB = this.add.rectangle(20, 320, valorVidaB, 10, 0xff33cc).setOrigin(0, 0);
+
+    vidaA = new HealthBar(this,560,320);
+    vidaB = new HealthBar(this, 20,320);
 
  
     //*******************
@@ -182,10 +230,6 @@ function create () {
 }
 
 function update (){
-
-    vidaA = this.add.rectangle(560, 320, valorVidaA, 10, 0x6666ff).setOrigin(0, 0);
-    vidaB = this.add.rectangle(20, 320, valorVidaB, 10, 0xff33cc).setOrigin(0, 0);
-
     if (lutA.anims.getProgress()==1 && lutA.anims.currentAnim.key != 'deadA') {
         let n = Math.floor(Math.random() * 100);
         if (n<90) {
