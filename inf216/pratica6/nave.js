@@ -55,8 +55,8 @@
         
         //asteroide.destroy();
         //asteroide = null;
-        asteroide.x=80;
-        asteroide.y=0;
+        asteroide.x=Math.floor(Math.random()*phaserConfig.height);
+        asteroide.y=-10;
         
       }, null, this);
 
@@ -67,9 +67,9 @@
       if (asteroide != null) {
           asteroide.y = (asteroide.y+1) % phaserConfig.height;
       }
-      else {
-        asteroide = this.physics.add.sprite(80, 0, 'asteroide').setOrigin(0, 0);
-        asteroide.anims.play('rola', true);
+      if (asteroide.x<0||asteroide.x>phaserConfig.height){
+        asteroide.x=Math.floor(Math.random()*phaserConfig.height);
+        asteroide.y=-10;
       }
       if(explosao != null){
         if (explosao.anims.getProgress()==1) {
