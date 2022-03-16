@@ -49,8 +49,8 @@
 
       var collider = this.physics.add.collider(nave, asteroide, function (nave, asteroide) {
         
-        explosao = this.physics.add.sprite(asteroide.x, asteroide.y, 'explosao').setOrigin(0, 0);
-        this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explosao', { start: 0, end: 14 }), frameRate: 30, repeat: 0 });
+        explosao = this.physics.add.sprite(nave.x, nave.y, 'explosao').setOrigin(0, 0);
+        this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explosao', { start: 0, end: 14 }), frameRate: 30, repeat: 1 });
         asteroide.anims.play('rola', true);
         
         asteroide.destroy();
