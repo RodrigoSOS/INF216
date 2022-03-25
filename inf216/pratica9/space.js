@@ -36,6 +36,7 @@ class Example extends Phaser.Scene
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
 
         this.circle = new Phaser.Geom.Circle(this.player.x, this.player.y, 50);
+        this.point = new Phaser.Geom.Rectangle(0, 0, 16, 16);
 
         this.player.setCollideWorldBounds(true);
         this.nave.setCollideWorldBounds(true);
@@ -61,9 +62,6 @@ class Example extends Phaser.Scene
     {
         this.player.setVelocity(0);
 
-        this.graphics.clear();
-        this.graphics.strokeCircleShape(this.circle);
-
         let velocidade = Math.floor(Math.random() * 1000) -500;
         let v = Math.random() * 100; 
         if (this.nave!=null){
@@ -72,14 +70,16 @@ class Example extends Phaser.Scene
             } else if (v > 95) {
                 this.nave.setVelocityX(velocidade);
             }
+            this.point.x = this.nave.x;
+            this.point.y = this.nave.y;
         }
         if (this.cursors.space.isDown)
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
             if (this.nave!=null){
                 //console.log(this.circle,this.nave)
-                if (Phaser.Geom.Circle.ContainsPoint(this.circle, this.nave.x, this.nave.y)){
-                    console.log("hit",this.circle,this.nave)
+                if (Phaser.Geom.Circle.ContainsPoint(this.circle, this.point)){
+                    console.log("hit",this.circle,this.point)
                     this.nave.destroy();
                     this.nave = null;
                 }
@@ -108,7 +108,12 @@ class Example extends Phaser.Scene
         }
         this.circle.x=this.player.x;
         this.circle.y=this.player.y;
+
+        this.graphics.clear();
+        this.graphics.strokeCircleShape(this.circle);
+        this.graphics.fillRect(point.x - 8, point.y - 8, point.width, point.height);
     }
+    
     
 }
 
