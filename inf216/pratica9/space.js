@@ -57,9 +57,6 @@ class Example extends Phaser.Scene
         this.explosao = this.add.particles('explosao');
 
         this.explosao.createEmitter({
-            alpha: { start: 1, end: 0 },
-            scale: { start: 0.5, end: 2.5 },
-            //tint: { start: 0xff945e, end: 0xff945e },
             speed: 20,
             accelerationY: -300,
             angle: { min: -85, max: -95 },
@@ -69,7 +66,8 @@ class Example extends Phaser.Scene
             frequency: 110,
             maxParticles: 10,
             x: 400,
-            y: 300
+            y: 300,
+            on: false
         });
 
         this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
