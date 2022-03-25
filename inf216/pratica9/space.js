@@ -59,6 +59,9 @@ class Example extends Phaser.Scene
     {
         this.player.setVelocity(0);
 
+        graphics.clear();
+        graphics.strokeCircleShape(circle);
+
         let velocidade = Math.floor(Math.random() * 1000) -500;
         let v = Math.random() * 100; 
         if (this.nave!=null){
@@ -72,7 +75,7 @@ class Example extends Phaser.Scene
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
             if (this.nave!=null){
-                if (Phaser.Geom.Circle.ContainsPoint(circle, this.nave.x, this.nave.y))
+                if (Phaser.Geom.Circle.ContainsPoint(this.circle, this.nave.x, this.nave.y))
                 this.nave.destroy();
                 this.nave = null;
             }
