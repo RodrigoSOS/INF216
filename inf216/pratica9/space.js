@@ -12,7 +12,7 @@ class Example extends Phaser.Scene
         this.load.image('mira', 'assets/mira.png');
         this.load.image('arma', 'assets/arma.png');
         this.load.spritesheet('plasma', 'assets/plasmaball.png', { frameWidth: 128, frameHeight: 128 });
-
+        this.load.spritesheet('explosao', 'assets/explosion.png', { frameWidth: 35, frameHeight: 49 });
     }
 
     create ()
@@ -54,6 +54,24 @@ class Example extends Phaser.Scene
             on: false
         });
 
+        this.explosao = this.add.particles('explosao');
+
+        this.explosao.createEmitter({
+            alpha: { start: 1, end: 0 },
+            scale: { start: 0.5, end: 2.5 },
+            //tint: { start: 0xff945e, end: 0xff945e },
+            speed: 20,
+            accelerationY: -300,
+            angle: { min: -85, max: -95 },
+            rotate: { min: -180, max: 180 },
+            lifespan: { min: 1000, max: 1100 },
+            blendMode: 'ADD',
+            frequency: 110,
+            maxParticles: 10,
+            x: 400,
+            y: 300
+        });
+
         this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
 
     }
@@ -79,6 +97,7 @@ class Example extends Phaser.Scene
             if (this.nave!=null){
                 //console.log(this.circle,this.nave)
                 if (Phaser.Geom.Circle.ContainsPoint(this.circle, this.point)){
+                    this.explosao.emitParticleAt(this.point.x, this.point.y);
                     console.log("hit",this.circle,this.point)
                     this.nave.destroy();
                     this.nave = null;
