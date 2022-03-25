@@ -62,7 +62,7 @@ class Example extends Phaser.Scene
         this.player.setVelocity(0);
 
         this.graphics.clear();
-        this.graphics.strokeCircleShape(circle);
+        this.graphics.strokeCircleShape(this.circle);
 
         let velocidade = Math.floor(Math.random() * 1000) -500;
         let v = Math.random() * 100; 
