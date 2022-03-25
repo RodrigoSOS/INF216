@@ -61,6 +61,7 @@ class Example extends Phaser.Scene
             accelerationY: -300,
             angle: { min: -85, max: -95 },
             rotate: { min: -180, max: 180 },
+            scale: { start: 2, end:  2 },
             lifespan: { min: 1000, max: 1100 },
             blendMode: 'ADD',
             frequency: 110,
