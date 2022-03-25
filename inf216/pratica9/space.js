@@ -77,8 +77,9 @@ class Example extends Phaser.Scene
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
             if (this.nave!=null){
-                console.log(this.circle,this.nave)
+                //console.log(this.circle,this.nave)
                 if (Phaser.Geom.Circle.ContainsPoint(this.circle, this.nave.x, this.nave.y)){
+                    console.log("hit",this.circle,this.nave)
                     this.nave.destroy();
                     this.nave = null;
                 }
