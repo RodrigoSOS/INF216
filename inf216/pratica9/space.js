@@ -33,6 +33,8 @@ class Example extends Phaser.Scene
         this.player = this.physics.add.image(400, 300, 'mira');
         this.arma = this.physics.add.image(400, 700, 'arma');
 
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
+
         this.circle = new Phaser.Geom.Circle(this.player.x, this.player.y, 200);
 
         this.player.setCollideWorldBounds(true);
@@ -59,8 +61,8 @@ class Example extends Phaser.Scene
     {
         this.player.setVelocity(0);
 
-        graphics.clear();
-        graphics.strokeCircleShape(circle);
+        this.graphics.clear();
+        this.graphics.strokeCircleShape(circle);
 
         let velocidade = Math.floor(Math.random() * 1000) -500;
         let v = Math.random() * 100; 
