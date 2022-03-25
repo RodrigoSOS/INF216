@@ -35,7 +35,7 @@ class Example extends Phaser.Scene
 
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
 
-        this.circle = new Phaser.Geom.Circle(this.player.x, this.player.y, 200);
+        this.circle = new Phaser.Geom.Circle(this.player.x, this.player.y, 50);
 
         this.player.setCollideWorldBounds(true);
         this.nave.setCollideWorldBounds(true);
@@ -104,6 +104,8 @@ class Example extends Phaser.Scene
         {
             this.player.setVelocityY(500);
         }
+        this.circle.x=this.player.x;
+        this.circle.y=this.player.y;
     }
     
 }
