@@ -12,9 +12,7 @@ class Example extends Phaser.Scene
         this.load.image('mira', 'assets/mira.png');
         this.load.image('arma', 'assets/arma.png');
         this.load.spritesheet('plasma', 'assets/plasmaball.png', { frameWidth: 128, frameHeight: 128 });
-        this.destroi = new function(){
-            console.log("oi")
-        }
+
     }
 
     create ()
@@ -70,7 +68,8 @@ class Example extends Phaser.Scene
         if (this.cursors.space.isDown)
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
-            this.destroi();
+            nave.destroy();
+            nave = null;
         }
     
         this.arma.x= this.player.x;
