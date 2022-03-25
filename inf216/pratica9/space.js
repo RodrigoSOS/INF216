@@ -89,7 +89,7 @@ class Example extends Phaser.Scene
         {
             this.player.setVelocityY(500);
         }
-        else if (this.cursors.q.isDown)
+        else if (this.cursors.keyQ.isDown)
         {
             destroi();
         }
