@@ -50,6 +50,11 @@ class Example extends Phaser.Scene
         });
 
         this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
+
+        this.destroi = new function(){
+            console.log("oi")
+        }
+
     }
 
     update ()
@@ -67,7 +72,7 @@ class Example extends Phaser.Scene
         if (this.cursors.space.isDown)
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
-            destroi();
+            this.destroi();
         }
     
         this.arma.x= this.player.x;
@@ -91,6 +96,7 @@ class Example extends Phaser.Scene
             this.player.setVelocityY(500);
         }
     }
+    
 }
 
 const config = {
@@ -104,6 +110,4 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-function destroi(){
-    console.log("oi")
-}
+
