@@ -111,7 +111,7 @@ class Example extends Phaser.Scene
 
         this.graphics.clear();
         this.graphics.strokeCircleShape(this.circle);
-        this.graphics.fillRect(point.x - 8, point.y - 8, point.width, point.height);
+        this.graphics.fillRect(this.point.x - 8, this.point.y - 8, this.point.width, this.point.height);
     }
     
     
