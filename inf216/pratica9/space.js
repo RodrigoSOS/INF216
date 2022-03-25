@@ -59,17 +59,20 @@ class Example extends Phaser.Scene
 
         let velocidade = Math.floor(Math.random() * 1000) -500;
         let v = Math.random() * 100; 
-        if (v <5 ) {
-             this.nave.setVelocityY(velocidade);
-        } else if (v > 95) {
-             this.nave.setVelocityX(velocidade);
+        if (this.nave!=null){
+            if (v <5 ) {
+                this.nave.setVelocityY(velocidade);
+            } else if (v > 95) {
+                this.nave.setVelocityX(velocidade);
+            }
         }
-        
         if (this.cursors.space.isDown)
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
-            this.nave.destroy();
-            this.nave = null;
+            if (this.nave!=null){
+                this.nave.destroy();
+                this.nave = null;
+            }
         }
     
         this.arma.x= this.player.x;
