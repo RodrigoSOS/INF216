@@ -67,6 +67,7 @@ class Example extends Phaser.Scene
         if (this.cursors.space.isDown)
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
+            destroi();
         }
     
         this.arma.x= this.player.x;
@@ -88,10 +89,6 @@ class Example extends Phaser.Scene
         else if (this.cursors.down.isDown)
         {
             this.player.setVelocityY(500);
-        }
-        else if (this.cursors.keyQ.isDown)
-        {
-            destroi();
         }
     }
 }
