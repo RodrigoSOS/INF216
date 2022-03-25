@@ -68,8 +68,8 @@ class Example extends Phaser.Scene
         if (this.cursors.space.isDown)
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
-            nave.destroy();
-            nave = null;
+            this.nave.destroy();
+            this.nave = null;
         }
     
         this.arma.x= this.player.x;
