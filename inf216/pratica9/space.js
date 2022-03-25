@@ -33,6 +33,8 @@ class Example extends Phaser.Scene
         this.player = this.physics.add.image(400, 300, 'mira');
         this.arma = this.physics.add.image(400, 700, 'arma');
 
+        this.circle = new Phaser.Geom.Circle(this.player.x, this.player.y, 200);
+
         this.player.setCollideWorldBounds(true);
         this.nave.setCollideWorldBounds(true);
         this.arma.setCollideWorldBounds(true);
@@ -70,6 +72,7 @@ class Example extends Phaser.Scene
         {
             this.particles.emitParticleAt(this.player.x, this.player.y+350);
             if (this.nave!=null){
+                if (Phaser.Geom.Circle.ContainsPoint(circle, this.nave.x, this.nave.y))
                 this.nave.destroy();
                 this.nave = null;
             }
